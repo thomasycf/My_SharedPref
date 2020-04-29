@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import io.flutter.Log;
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.dart.DartExecutor;
@@ -35,10 +36,11 @@ public class MainActivity extends FlutterActivity {
       public void onMethodCall(MethodCall call, MethodChannel.Result result) {
         switch (call.method){
           case "WRITE":
+            Log.i("MethodChannel Call", "adding new String Set to SharedPref");
             Set<String> newMessageSets = sharedPref.getStringSet("flutter.messageLog", new HashSet<String>());
             HashMap<String, String> newMapData = new HashMap<>();
-            newMapData.put("userName", "this is username");
-            newMapData.put("password", "this is password");
+            newMapData.put("userName", "new username");
+            newMapData.put("password", "new password");
             newMapData.put("createAt", "time:"+ new Date().getTime());
             Gson gson = new Gson();
             Type gsonType = new TypeToken<HashMap>(){}.getType();
@@ -46,6 +48,7 @@ public class MainActivity extends FlutterActivity {
             newMessageSets.add(gsonString);
             myEditor.putStringSet("flutter.messageLog", newMessageSets);
             myEditor.commit();
+            result.success(true);
             break;
           default:
             result.success(true);

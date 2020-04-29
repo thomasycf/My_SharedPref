@@ -51,9 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
           RaisedButton(
             child: Text('Write SP in Android'),
-            onPressed: (){
-              _methodChannel.invokeMethod('WRITE');
-
+            onPressed: ()async{
+             var result = await _methodChannel.invokeMethod('WRITE');
+print('add new data to SharedPref in Android = $result');
             },
           ),
         ],
@@ -66,48 +66,5 @@ class _MyHomePageState extends State<MyHomePage> {
     var _messageLog = prefs.getStringList('messageLog');
     print ('_messageLog = $_messageLog');
   }
-
-//  _setSP()async{
-//    SharedPreferences prefs = await SharedPreferences.getInstance();
-//    CurrentUser _user1 = CurrentUser(userId: 'one', device: 'nokia');
-//    CurrentUser _user2 = CurrentUser(userId: 'two', device: 'apple');
-//    List<String> _userList = [json.encode(_user1.toJson()), json.encode(_user2.toJson())];
-//    //await prefs.setStringList('mydata', _userList);
-//    // var guestId = prefs.getString('guestId');
-////  print('guestId = $guestId');
-//
-//    // getStringList would change Android's Set<String> to String
-//    // var mydata = prefs.getStringList('messageLog'); // return null if not found
-//
-//    var mydata = prefs.getString('messageLog'); // return null if not found
-//    print('mydata = $mydata ');
-//    var _newList = mydata.split('|');
-//    print('_newList = $_newList ');
-//    List<MessageInfo> _mL = _newList.map((d){
-//      return MessageInfo.fromJson( json.decode(d));
-//    }).toList();
-//
-//    print('MessageInfo list = $_mL');
-//    print('MessageInfo list len= ${_mL.length}');
-//    print('ml[0] = ${_mL[0].toJson()}');
-////  prefs.remove('messageLog');
-////  print( 'prefs.getStringList(messageLog) = ${ prefs.getStringList('messageLog')}' );
-//
-//
-//    // print(' length = ${mydata.length}');
-////  List<dynamic> _newList = List<dynamic>.from(mydata);
-////  List<MessageInfo> mydataList = _newList.map((d){
-////    print('d = $d');
-////    Map<dynamic, dynamic> _temp = json.decode(d);
-////    print('_temp = $_temp');
-////    return MessageInfo.fromJson(_temp);
-////   // return CurrentUser.fromJson(_temp);
-////  }).toList();
-////  print('mydataList = $mydataList');
-////  prefs.remove('messageLog');
-////  print( 'prefs.getStringList(messageLog) = ${ prefs.getStringList('messageLog')}' );
-//
-//
-//  }
 
 }
